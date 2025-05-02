@@ -4,12 +4,6 @@ JavaProb is your one-stop collection of Java programming problems with clean sol
 📌 What's Inside?
 🧩 A variety of Java problems:
 
-✅ Basics & Syntax
-
-🔁 Loops & Conditionals
-
-🧵 Strings
-
 📊 Arrays & Collections
 
 🔣 Recursion
