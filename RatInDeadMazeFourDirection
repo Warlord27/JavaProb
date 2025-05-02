@@ -1,0 +1,62 @@
+/**
+ * 🐭 RatInDeadMazeFourDirection.java
+ * 
+ * This program finds all possible paths 🛣️ from the top-left to the bottom-right corner
+ * of a maze using recursion 🔁 and backtracking 🔙. The rat 🐭 can move in four directions: 
+ * right ➡️ (R), down ⬇️ (D), left ⬅️ (L), and up ⬆️ (U). Cells with value 0 are blocked 🚫.
+ *
+ * Author: Adam Warlord
+ * GitHub: https://github.com/Warlord27/
+ */
+
+public class RatInDeadMazeFourDirection {
+    public static void main(String[] args) {
+        int row = 4, col = 4;
+        int maze[][] = {
+            { 1, 0, 1, 1 },
+            { 1, 1, 1, 1 },
+            { 1, 1, 0, 1 },
+            { 1, 0, 0, 1 }
+        };
+        boolean isVisited[][] = new boolean[row][col];
+
+        System.out.println("🧭 All possible paths from start to end:");
+        print(0, 0, row - 1, col - 1, "", maze, isVisited);
+    }
+
+    /**
+     * 🔁 Recursively explores all paths from (sr, sc) to (er, ec).
+     *
+     * @param sr         current row 📍
+     * @param sc         current column 📍
+     * @param er         end row 🏁
+     * @param ec         end column 🏁
+     * @param path       current path as a string of directions 🧵
+     * @param maze       the maze grid (1: open ✅, 0: blocked 🚫)
+     * @param isVisited  grid to track visited positions 👣
+     */
+    static void print(int sr, int sc, int er, int ec, String path, int[][] maze, boolean[][] isVisited) {
+        // 🛑 Base case: out of bounds or blocked/visited
+        if (sr > er || sc > ec || sr < 0 || sc < 0 || maze[sr][sc] == 0 || isVisited[sr][sc]) {
+            return;
+        }
+
+        // ✅ If destination is reached, print the path
+        if (sr == er && sc == ec) {
+            System.out.println("✅ Path found: " + path);
+            return;
+        }
+
+        // 🚩 Mark current cell as visited
+        isVisited[sr][sc] = true;
+
+        // ➡️ Explore in all four directions
+        print(sr, sc + 1, er, ec, path + "R", maze, isVisited); // Right ➡️
+        print(sr + 1, sc, er, ec, path + "D", maze, isVisited); // Down ⬇️
+        print(sr, sc - 1, er, ec, path + "L", maze, isVisited); // Left ⬅️
+        print(sr - 1, sc, er, ec, path + "U", maze, isVisited); // Up ⬆️
+
+        // 🔙 Backtrack: unmark the current cell
+        isVisited[sr][sc] = false;
+    }
+}
