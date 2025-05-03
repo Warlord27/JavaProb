@@ -9,19 +9,25 @@
  * GitHub: https://github.com/Warlord27/
  */
 
-public class RatInDeadMazeFourDirection {
+public class RatInDeadMazeAnyGrid {
     public static void main(String[] args) {
-        int row = 4, col = 4;
-        int maze[][] = {
-            { 1, 0, 1, 1 },
-            { 1, 1, 1, 1 },
-            { 1, 1, 0, 1 },
-            { 1, 0, 0, 1 }
+        // Define the grid (can be any size or shape)
+        int[][] maze = {
+            { 1, 0, 1, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 1, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 0, 1, 0, 1 }
         };
-        boolean isVisited[][] = new boolean[row][col];
+
+        int row = maze.length; // Number of rows
+        int col = maze[0].length; // Number of columns
+
+        // Visited array to track visited cells
+        boolean[][] isVisited = new boolean[row][col];
 
         System.out.println("🧭 All possible paths from start to end:");
-        print(0, 0, row - 1, col - 1, "", maze, isVisited);
+        printPaths(0, 0, row - 1, col - 1, "", maze, isVisited);
     }
 
     /**
@@ -35,9 +41,9 @@ public class RatInDeadMazeFourDirection {
      * @param maze       the maze grid (1: open ✅, 0: blocked 🚫)
      * @param isVisited  grid to track visited positions 👣
      */
-    static void print(int sr, int sc, int er, int ec, String path, int[][] maze, boolean[][] isVisited) {
+    static void printPaths(int sr, int sc, int er, int ec, String path, int[][] maze, boolean[][] isVisited) {
         // 🛑 Base case: out of bounds or blocked/visited
-        if (sr > er || sc > ec || sr < 0 || sc < 0 || maze[sr][sc] == 0 || isVisited[sr][sc]) {
+        if (sr < 0 || sc < 0 || sr >= maze.length || sc >= maze[0].length || maze[sr][sc] == 0 || isVisited[sr][sc]) {
             return;
         }
 
@@ -51,10 +57,10 @@ public class RatInDeadMazeFourDirection {
         isVisited[sr][sc] = true;
 
         // ➡️ Explore in all four directions
-        print(sr, sc + 1, er, ec, path + "R", maze, isVisited); // Right ➡️
-        print(sr + 1, sc, er, ec, path + "D", maze, isVisited); // Down ⬇️
-        print(sr, sc - 1, er, ec, path + "L", maze, isVisited); // Left ⬅️
-        print(sr - 1, sc, er, ec, path + "U", maze, isVisited); // Up ⬆️
+        printPaths(sr, sc + 1, er, ec, path + "R", maze, isVisited); // Right ➡️
+        printPaths(sr + 1, sc, er, ec, path + "D", maze, isVisited); // Down ⬇️
+        printPaths(sr, sc - 1, er, ec, path + "L", maze, isVisited); // Left ⬅️
+        printPaths(sr - 1, sc, er, ec, path + "U", maze, isVisited); // Up ⬆️
 
         // 🔙 Backtrack: unmark the current cell
         isVisited[sr][sc] = false;
