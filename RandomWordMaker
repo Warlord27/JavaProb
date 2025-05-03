@@ -76,13 +76,13 @@ public class RandomWordMaker {
         System.out.print("Enter a word: ");
         String wor = sc.next().toUpperCase();
         int c = wor.length();
-        Random rG = new Random(); // Changed object name to rG
-        HashSet<String> WordList = new HashSet<>(); // Changed object name to WordList
+        Random rG = new Random(); 
+        HashSet<String> WordList = new HashSet<>();
 
         // Generate all possible unique random words
         while (WordList.size() < factorial(c)) {
             StringBuilder randomWord = new StringBuilder(wor);
-            StringBuilder Shuf = new StringBuilder(); // Changed object name to Shuf
+            StringBuilder Shuf = new StringBuilder(); 
 
             while (randomWord.length() > 0) {
                 int randomIndex = rG.nextInt(randomWord.length());
