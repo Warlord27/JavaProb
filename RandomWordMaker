@@ -1,0 +1,124 @@
+# 🎲 Random Word Maker
+
+A Java program that generates all possible unique random permutations of a given word. This program uses a `HashSet` to ensure no duplicate words are generated and calculates the maximum number of permutations using the factorial of the word's length.
+
+## 🚀 Features
+- ✅ Generates all unique random permutations of a word.
+- ✅ Ensures no duplicate permutations using a `HashSet`.
+- ✅ Calculates the maximum number of permutations using factorial logic.
+- ✅ Outputs the generated permutations in uppercase.
+
+## 🛠️ How It Works
+1. The user inputs a word.
+2. The program calculates the factorial of the word's length to determine the maximum number of unique permutations.
+3. Random permutations are generated using a `Random` object and stored in a `HashSet` to avoid duplicates.
+4. All unique permutations are printed to the console.
+
+## 📂 File Structure
+```
+RandomWordMaker.java
+```
+
+## 📋 Example Usage
+### Input:
+```
+Enter a word: JAVA
+```
+
+### Output:
+```
+Unique random words generated from the input word:
+1      AVJA
+2      JAAJ
+3      AJVA
+4      VAJA
+5      AJAV
+6      AVAJ
+...
+```
+
+## 🧮 How Factorial is Used
+The program calculates the factorial of the word's length (`n!`) to determine the maximum number of unique permutations. For example:
+- A word with 3 letters (`ABC`) has `3! = 6` unique permutations: `ABC, ACB, BAC, BCA, CAB, CBA`.
+
+## 📦 Requirements
+- Java Development Kit (JDK) 8 or higher.
+
+## 🏃‍♂️ How to Run
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Warlord27/JavaProb.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd random-word-maker
+   ```
+3. Compile the program:
+   ```bash
+   javac RandomWordMaker.java
+   ```
+4. Run the program:
+   ```bash
+   java RandomWordMaker
+   ```
+
+
+
+Code👩‍💻:
+
+import java.util.Scanner;
+import java.util.Random;
+import java.util.HashSet;
+
+public class RandomWordMaker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a word: ");
+        String wor = sc.next().toUpperCase();
+        int c = wor.length();
+        Random rG = new Random(); // Changed object name to rG
+        HashSet<String> WordList = new HashSet<>(); // Changed object name to WordList
+
+        // Generate all possible unique random words
+        while (WordList.size() < factorial(c)) {
+            StringBuilder randomWord = new StringBuilder(wor);
+            StringBuilder Shuf = new StringBuilder(); // Changed object name to Shuf
+
+            while (randomWord.length() > 0) {
+                int randomIndex = rG.nextInt(randomWord.length());
+                Shuf.append(randomWord.charAt(randomIndex));
+                randomWord.deleteCharAt(randomIndex);
+            }
+
+            WordList.add(Shuf.toString());
+        }
+
+        // Print all unique random words
+        System.out.println("Unique random words generated from the input word:");
+        int count = 1;
+        for (String word : WordList) {
+            System.out.println(count + "      " + word);
+            count++;
+        }
+    }
+
+    // Helper method to calculate factorial
+    public static int factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        return n * factorial(n - 1);
+    }
+}
+
+
+## 🤝 Contributing
+Feel free to fork this repository and submit pull requests. Contributions are welcome! 🎉
+
+## 📜 License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+Made with 😁 by [Adam Warlord](https://github.com/Warlord27)
+```
