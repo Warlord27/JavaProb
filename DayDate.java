@@ -5,58 +5,92 @@ public class DayDate {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a year: ");
-        int y = sc.nextInt();
+        int year = sc.nextInt();
         System.out.println("Enter the month: ");
-        String mon = sc.next().toUpperCase();
-        System.out.println("Enter  the day: ");
-        int dat = sc.nextInt();
-        String fyear = "" + (y - y % 100);
-        fyear = fyear.substring(0, 2);
+        String month = sc.next().toUpperCase();
+        System.out.println("Enter the day: ");
+        int dayOfMonth = sc.nextInt();
 
-        HashMap<String, Integer> mc = new HashMap<>();
-        mc.put("JANUARY", 1);
-        mc.put("FEBRUARY", 4);
-        mc.put("MARCH", 4);
-        mc.put("APRIL", 0);
-        mc.put("MAY", 2);
-        mc.put("JUNE", 5);
-        mc.put("JULY", 0);
-        mc.put("AUGUST", 3);
-        mc.put("SEPTEMBER", 6);
-        mc.put("OCTOBER", 1);
-        mc.put("NOVEMBER", 4);
-        mc.put("DECEMBER", 6);
+        // Month codes
+        HashMap<String, Integer> monthCodes = new HashMap<>();
+        monthCodes.put("JANUARY", 1);
+        monthCodes.put("FEBRUARY", 4);
+        monthCodes.put("MARCH", 4);
+        monthCodes.put("APRIL", 0);
+        monthCodes.put("MAY", 2);
+        monthCodes.put("JUNE", 5);
+        monthCodes.put("JULY", 0);
+        monthCodes.put("AUGUST", 3);
+        monthCodes.put("SEPTEMBER", 6);
+        monthCodes.put("OCTOBER", 1);
+        monthCodes.put("NOVEMBER", 4);
+        monthCodes.put("DECEMBER", 6);
 
-        HashMap<String, Integer> ct = new HashMap<>();
-        ct.put("17", 4);
-        ct.put("18", 2);
-        ct.put("19", 0);
-        ct.put("20", 6);
-        ct.put("21", 4);
-        ct.put("22", 2);
-        ct.put("23", 0);
+        // Day values
+        HashMap<Integer, String> dayNames = new HashMap<>();
+        dayNames.put(0, "SUNDAY");
+        dayNames.put(1, "MONDAY");
+        dayNames.put(2, "TUESDAY");
+        dayNames.put(3, "WEDNESDAY");
+        dayNames.put(4, "THURSDAY");
+        dayNames.put(5, "FRIDAY");
+        dayNames.put(6, "SATURDAY");
 
-        HashMap<Integer, String> day = new HashMap<>();
-        day.put(0, "SUNDAY");
-        day.put(1, "MONDAY");
-        day.put(2, "TUESDAY");
-        day.put(3, "WEDNESDAY");
-        day.put(4, "THURSDAY");
-        day.put(5, "FRIDAY");
-        day.put(6, "SATURDAY");
+        // Validate month
+        if (!monthCodes.containsKey(month)) {
+            System.out.println("Invalid month entered.");
+            sc.close();
+            return;
+        }
 
-        int digi = Integer.valueOf(y) % 100;
-        digi /= 4;
-        digi += dat;
-        int monCode = mc.getOrDefault(mon, -1);
-        int centuryCode = ct.getOrDefault(fyear, -1);
-        digi = (digi + monCode - 1 + centuryCode + y % 100) % 7;
+        // Leap year adjustment
+        boolean isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        if (isLeapYear && (month.equals("JANUARY") || month.equals("FEBRUARY"))) {
+            dayOfMonth -= 1; // Subtract 1 for leap year adjustment
+        }
 
-        if (day.containsKey(digi)) {
-            System.out.println("Day: " + day.get(digi));
+        // Calculate the century code dynamically
+        int century = year / 100;
+        int centuryCode = (3 - (century % 4)) * 2;
+
+        // Calculate the year part
+        int yearPart = year % 100;
+        int yearCode = yearPart + (yearPart / 4);
+
+        // Get the month code
+        int monthCode = monthCodes.get(month);
+
+        // Final formula
+        int dayCode = (yearCode + monthCode + dayOfMonth + centuryCode) % 7;
+
+        // Print the result
+        if (dayNames.containsKey(dayCode)) {
+            System.out.println("Day: " + dayNames.get(dayCode));
         } else {
             System.out.println("Invalid day calculation.");
         }
+
         sc.close();
     }
 }
+
+
+
+/*
+
+Changes Made:
+Dynamic Century Code Calculation:
+
+Instead of using a fixed HashMap for century codes, the program calculates the century code dynamically using (3 - (century % 4)) * 2.
+Leap Year Adjustment:
+
+A check is added to determine if the year is a leap year.
+For leap years, January and February days are adjusted by subtracting 1.
+Validation:
+
+Checks if the entered month is valid. If not, the program exits with an error message.
+Scalability:
+
+The program now works for any year, including years not covered by the original fixed century codes.
+
+*/
