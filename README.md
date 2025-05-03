@@ -40,7 +40,7 @@ JavaProb is your one-stop collection of Java programming problems with clean sol
 Clone this repo
 
 
-git clone https://github.com/your-username/JavaProb.git
+git clone https://github.com/Warlord27/JavaProb.git
 Navigate and open any .java file
 
 Compile & run with your favorite Java IDE or CLI
