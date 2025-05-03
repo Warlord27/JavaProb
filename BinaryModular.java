@@ -42,8 +42,8 @@ public class BinaryModular {
 
         if (choice == 1) {
             // Encoding
-            System.out.println("Enter the message (letters and numbers only, no punctuation): ");
-            String s = sc.nextLine().toUpperCase(); // Read the entire line and convert to uppercase
+            System.out.println("Enter the message: ");
+            String s = sc.nextLine(); // Read the entire line
             StringBuilder message = new StringBuilder();
 
             for (String token : s.split("\\s+")) { // Split input by spaces
@@ -66,11 +66,12 @@ public class BinaryModular {
                 if (token.matches("[01]+")) { // Check if the token is binary
                     try {
                         // Decode as a character
-                        decodedMessage.append(binaryToWord(token)).append(" ");
+                        decodedMessage.append(binaryToWord(token));
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid binary input: " + token);
                     }
                 }
+                decodedMessage.append(" "); // Preserve spaces between words
             }
 
             System.out.println("Decoded Message: " + decodedMessage.toString().trim());
