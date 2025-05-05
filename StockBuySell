@@ -1,0 +1,90 @@
+Here is the optimized version of your code with improved readability and better comments to make the logic clearer:
+
+``java
+class StockBuySell {
+
+    // Function to calculate the maximum profit
+    static int maximumProfit(int[] prices) {
+        int n = prices.length;
+        int totalProfit = 0; // Variable to store the total profit
+        int i = 0;
+
+        // Traverse the array to find buying and selling points
+        while (i < n - 1) {
+            // Find the local minima (buying point)
+            while (i < n - 1 && prices[i] >= prices[i + 1]) {
+                i++;
+            }
+            if (i == n - 1) break; // No more buying points
+            int buyPrice = prices[i]; // Set the buying price
+
+            // Find the local maxima (selling point)
+            while (i < n - 1 && prices[i] <= prices[i + 1]) {
+                i++;
+            }
+            int sellPrice = prices[i]; // Set the selling price
+
+            // Add the profit from the current transaction
+            totalProfit += (sellPrice - buyPrice);
+        }
+
+        return totalProfit; // Return the total profit
+    }
+
+    public static void main(String[] args) {
+        // Example array of stock prices
+        int[] prices = {100, 180, 260, 310, 40, 535, 695};
+
+        // Print the maximum profit that can be achieved
+        System.out.println("Maximum Profit: " + maximumProfit(prices));
+    }
+}
+```
+
+---
+
+### Optimizations and Improvements:
+1. **Variable Names**:
+   - Changed `lMin` to `buyPrice` and `lMax` to `sellPrice` for better clarity.
+   - Changed `res` to `totalProfit` to make its purpose more descriptive.
+
+2. **Comments**:
+   - Added clear and concise comments to explain each step of the algorithm.
+
+3. **Edge Case Handling**:
+   - Added a condition to break the loop if no more buying points are available (`if (i == n - 1) break;`).
+
+4. **Output**:
+   - Improved the output message in the `main` method to make it more user-friendly.
+
+---
+
+### Example Input/Output:
+
+#### Input:
+```java
+int[] prices = {100, 180, 260, 310, 40, 535, 695};
+```
+
+#### Output:
+```
+Maximum Profit: 865
+```
+
+---
+
+### Explanation of the Output:
+- Buy at `100`, sell at `310` → Profit = `310 - 100 = 210`
+- Buy at `40`, sell at `695` → Profit = `695 - 40 = 655`
+- Total Profit = `210 + 655 = 865`
+
+This optimized version improves readability and ensures the logic is easy to follow.
+🛠️ How to Use Clone this repo
+
+git clone https://github.com/Warlord27/JavaProb.git Navigate and open any .java file
+
+Compile & run with your favorite Java IDE or CLI
+
+⭐ Contributions Welcome! Got a cool Java problem? Found a bug? Feel free to fork, improve, or suggest! 🙌
+
+Made with ☕ and ❤️ by Adam Warlord
